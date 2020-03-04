@@ -1,14 +1,16 @@
 <template>
     <default-field @keydown.native.stop :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
-            <froala
-                v-if="!loading"
-                :id="field.name"
-                :tag="'textarea'"
-                :config="options"
-                :placeholder="field.name"
-                v-model="value"
-            ></froala>
+            <div v-bind:class="editorClass">
+                <froala
+                    v-if="!loading"
+                    :id="field.name"
+                    :tag="'textarea'"
+                    :config="options"
+                    :placeholder="field.name"
+                    v-model="value"
+                ></froala>
+            </div>
         </template>
     </default-field>
 </template>
@@ -46,11 +48,13 @@ export default {
         return {
             loading: true,
             mediaConfigurator: new MediaConfigurator(this.resourceName, this.field, this.$toasted),
+            editorClass: 'editor'
         };
     },
 
     computed: {
         options() {
+            this.editorClass = this.field.options.editorClass;
             return _.merge(this.field.options, this.defaultConfig(), window.froala || {});
         },
     },
@@ -70,3 +74,18 @@ export default {
     },
 };
 </script>
+<style>
+    .fr-view {
+        border-left: 1px solid #CCCCCC;
+        border-right: 1px solid #CCCCCC;
+        margin: 0 auto;
+    }
+
+    .editor-small .fr-view {
+        max-width: 720px;
+    }
+
+    .editor-medium .fr-view {
+        max-width: 1000px;
+    }
+</style>
