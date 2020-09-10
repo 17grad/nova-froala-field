@@ -3,6 +3,7 @@
 namespace Froala\NovaFroalaField\Handlers;
 
 use Froala\NovaFroalaField\Froala;
+use Froala\NovaFroalaField\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,12 @@ class AttachedImagesList
         $Storage = Storage::disk($this->field->disk);
 
         foreach ($Storage->allFiles() as $file) {
-            if (! app()->runningUnitTests() and ! @getimagesize($Storage->url($file))) {
+            $attachment = Attachment::where('attachment', $file)->first();
+            if (!$attachment) {
+                continue;
+            }
+
+            if (isset($request->attachable_id) && $request->attachable_id != $attachment->attachable_id) {
                 continue;
             }
 

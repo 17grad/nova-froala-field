@@ -106,11 +106,16 @@ class MediaConfigurator {
     }
 
     get imageManagerLoadConfig() {
+
+        // Travelguide hack to only show article attachments
+        const articleId = window.location.href.match(/\/articles\/(.*)\/edit/i);
+
         return {
             imageManagerLoadURL: `/nova-vendor/froala-field/${this.resource}/image-manager`,
 
             imageManagerLoadParams: {
                 field: this.field.attribute,
+                attachable_id: articleId.length > 1 ? articleId[1] : null
             },
         };
     }
