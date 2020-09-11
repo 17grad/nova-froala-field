@@ -115,7 +115,7 @@ class MediaConfigurator {
 
             imageManagerLoadParams: {
                 field: this.field.attribute,
-                attachable_id: articleId.length > 1 ? articleId[1] : null
+                attachable_id: (articleId && articleId.length > 1) ? articleId[1] : null
             },
         };
     }

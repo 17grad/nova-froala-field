@@ -25,7 +25,7 @@ class FroalaFieldServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) use ($froalaPlugins) {
-            Nova::script('nova-froala-field', static::ASSETS_DIST_DIRECTORY.'/js/field-v2.js');
+            Nova::script('nova-froala-field', static::ASSETS_DIST_DIRECTORY.'/js/field-v3.js');
             Nova::style('nova-froala-field', static::ASSETS_DIST_DIRECTORY.'/css/field.css');
 
             $froalaPlugins->import();
