@@ -3,7 +3,7 @@ let mix = require('laravel-mix');
 let distPath = 'dist';
 
 mix.setPublicPath(distPath)
-    .js('resources/js/field.js', 'js')
+    .js('resources/js/field-v2.js', 'js')
     .sass('resources/sass/field.scss', 'css')
     .copy(
         'node_modules/froala-editor/css/froala_style.min.css',
